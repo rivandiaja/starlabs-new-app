@@ -7,7 +7,7 @@ const Services: React.FC = () => {
         <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 reveal">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                Our <span className="text-gradient">Services</span>
+                Our <span className="text-gradient">Program</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-star-light to-blue-500 mx-auto"></div>
             <p className="mt-6 text-gray-400 max-w-2xl mx-auto">
@@ -18,19 +18,24 @@ const Services: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
             {[
                 {
-                title: 'Research & Development',
-                description: 'Cutting-edge R&D services from concept to testing.',
-                points: ['Applied Research', 'Prototype Development', 'Technology Transfer'],
+                title: 'Pemprograman',
+                description: 'A focused program on software development for various applications.',
+                points: ['Web Development', 'Mobile Apps', 'Cloud Solutions'],
                 },
                 {
-                title: 'Advanced Computing',
-                description: 'High-performance computing for simulations, AI, and analytics.',
-                points: ['AI & Machine Learning', 'Big Data Analytics', 'Quantum Computing'],
+                title: 'MultiMedia',
+                description: 'Innovative multimedia solutions for engaging content creation.',
+                points: ['Video Production', 'Graphic Design', 'Interactive Media'],
                 },
                 {
-                title: 'Laboratory Services',
-                description: 'World-class facilities for analysis and experimentation.',
-                points: ['Material Analysis', 'Biological Testing', 'Chemical Synthesis'],
+                title: 'Jaringan',
+                description: 'Comprehensive networking solutions for seamless connectivity.',
+                points: ['Network Design', 'Security Solutions', 'Cloud Networking'],
+                },
+                {
+                title: 'Office',
+                description: 'Office solutions to enhance productivity and collaboration.',
+                points: ['Document Management', 'Collaboration Tools', 'Data Analysis'],
                 },
             ].map((service, idx) => (
                 <div key={idx} className="glass-card rounded-2xl p-6 h-full">

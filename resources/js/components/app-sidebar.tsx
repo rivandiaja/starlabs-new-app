@@ -14,8 +14,8 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Profile',
-        href: '/profile',
+        title: 'User Management',
+        href: '/users',
         icon: LayoutGrid,
     },
 ];

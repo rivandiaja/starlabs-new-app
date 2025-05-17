@@ -7,7 +7,7 @@ import About from './components/About';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import SplashCursor from '@/components/ui/splashcursor';
+//import SplashCursor from '@/components/ui/splashcursor';//
 
 
 const Home: React.FC = () => {
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
     <>
         <Head title="Home"/>
         <div className="flex z-0 min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
-        <SplashCursor />
+        {/* <SplashCursor /> */}
         <main className="font-poppins smooth-scroll z-1">
             <Navbar />
             <Hero />
