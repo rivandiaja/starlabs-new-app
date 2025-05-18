@@ -39,5 +39,25 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    gender?: string;
+    role?: {
+        id: number;
+        name: string;
+    };
+    [key: string]: unknown;
+}
+
+export interface PageProps<T = Record<string, unknown>> {
+    auth: Auth;
+    ziggy: Config & { location: string };
+    children?: React.ReactNode;
+    sidebarOpen?: boolean;
+    [key: string]: unknown;
+    data?: T;
+}
+
+export interface PageProps {
+  auth: Auth;
+  ziggy: Config & { location: string };
+  [key: string]: unknown;
 }

@@ -16,6 +16,26 @@ class ProfileController extends Controller
     /**
      * Show the user's profile settings page.
      */
+    /*public function rules(): array
+    {
+        return [
+            'name' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'gender' => ['nullable', 'in:male,female,other'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
+        ];
+    }*/
+
+    /*public function show()
+    {
+        $user = auth()->user();
+        $avatarUrl = $user->avatar ? Storage::url('avatar/' . $user->avatar) : null;
+        return Inertia::render('settings/profile', [
+            'user' => $user,
+            'avatarUrl' => $avatarUrl,
+        ]);
+    }*/
+
     public function edit(Request $request): Response
     {
         return Inertia::render('settings/profile', [
@@ -29,11 +49,52 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        //$request->user()->fill($request->validated());
+        $user = $request->user();
+        $hasChanges = false;
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        /*if (!empty($validated['name']) && $user->name !== $validated['name']) {
+            $user->name = $validated['name'];
+            $hasChanges = true;
+        }*/
+
+        if ($request->filled('name') && $request->name !== $user->name) {
+        $user->name = $request->name;
+        $hasChanges = true;
         }
+
+        /*if (!empty($validated['email']) && $user->email !== $validated['email']) {
+            $user->email = $validated['email'];
+            $user->email_verified_at = null;
+            $hasChanges = true;
+        }*/
+
+        if ($request->filled('email') && $request->email !== $user->email) {
+            $user->email = $request->email;
+            $user->email_verified_at = null;
+            $hasChanges = true;
+        }
+        
+        /*if (!empty($validated['gender']) && $user->gender !== $validated['gender']) {
+            $user->gender = $validated['gender'];
+            $hasChanges = true;
+        }*/
+        
+        if ($request->filled('gender')) {
+            $user->gender = $request->gender;
+            $hasChanges = true;
+        }
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+            $hasChanges = true;
+        }
+
+
+        /*if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }*/
 
         $request->user()->save();
 

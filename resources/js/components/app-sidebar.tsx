@@ -14,10 +14,16 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
+        title: 'Profile',
+        href: '/settings/profile',
+        icon: LayoutGrid,
+    },
+    {
         title: 'User Management',
         href: '/users',
         icon: LayoutGrid,
     },
+    
 ];
 
 const footerNavItems: NavItem[] = [
