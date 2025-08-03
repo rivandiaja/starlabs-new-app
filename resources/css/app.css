@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @config "../../tailwind.config.ts";
 @plugin 'tailwindcss-animate';
+@import 'swiper/css';
+@import 'swiper/css/pagination';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -164,6 +166,10 @@
 
     body {
         @apply bg-background text-foreground;
+          user-select: none; /* Standar */
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
     }
 }
 
