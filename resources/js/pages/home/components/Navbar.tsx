@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import type { SharedData } from '@/types';
 
 const Navbar: React.FC = () => {
   const { auth } = usePage<SharedData>().props;
   const [menuOpen, setMenuOpen] = useState(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false)
 
   // Scroll ke anchor setelah halaman dimuat
-  useEffect(() => {
+  useEffect(() => { 
     if (window.location.hash) {
       setTimeout(() => {
         const el = document.querySelector(window.location.hash);
@@ -22,6 +24,9 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="glass fixed w-full z-50 px-4 sm:px-6 lg:px-8 py-4 text-white bg-[#00000090] backdrop-blur-md">
+      <audio id="bg-music" autoPlay loop hidden>
+      <source src="/background.mp3" type="audio/mpeg" />
+    </audio>
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex-shrink-0">

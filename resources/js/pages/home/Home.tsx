@@ -8,38 +8,38 @@ import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import OurTeam from './components/OurTeam';
 import Services from './components/Services';
+import EventSection from './components/EventSection';
 
 const Home: React.FC = () => {
     useEffect(() => {
         if (window.location.hash) {
-  const el = document.querySelector(window.location.hash);
-  if (el) {
-    const yOffset = -100; // Ganti angka ini sesuai jarak yang kamu mau
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            const el = document.querySelector(window.location.hash);
+            if (el) {
+                const yOffset = -100; // Ganti angka ini sesuai jarak yang kamu mau
+                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-    window.scrollTo({
-      top: y,
-      behavior: 'smooth',
-    });
-  }
-}
-const revealOnScroll = () => {
-    const reveals = document.querySelectorAll('.reveal');
-
-    for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        const elementBottom = reveals[i].getBoundingClientRect().bottom;
-        const elementVisible = 50;
-
-        if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
-            reveals[i].classList.add('active');
-        } else {
-            reveals[i].classList.remove('active'); // 🔁 Remove when out of view
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth',
+                });
+            }
         }
-    }
-};
+        const revealOnScroll = () => {
+            const reveals = document.querySelectorAll('.reveal');
 
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementBottom = reveals[i].getBoundingClientRect().bottom;
+                const elementVisible = 50;
+
+                if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active'); // 🔁 Remove when out of view
+                }
+            }
+        };
 
         const menuButton = document.getElementById('menu-toggle');
 
@@ -56,20 +56,21 @@ const revealOnScroll = () => {
         return () => {
             window.removeEventListener('scroll', revealOnScroll);
         };
-        
     }, []);
 
     return (
         <>
             <Head title="Home" />{' '}
             <div className="z-0 flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
+
                 <SplashCursor />{' '}
-                <main className="font-poppins z-1 animate-slide-up animate-once">
+                <main className="font-poppins animate-slide-up animate-once z-1">
                     <Navbar />
                     <Hero />
                     <About />
                     <OurTeam />
                     <Services />
+                    <EventSection />
                     <Contact />
                     <Footer />{' '}
                 </main>{' '}
