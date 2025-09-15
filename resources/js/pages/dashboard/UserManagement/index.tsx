@@ -38,7 +38,7 @@ const Users: React.FC<Props> = ({ users }) => {
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
-                    <thead className="text-gray-400 border-b border-star-light">
+                    <thead className="text-white border-b border-white">
                         <tr>
                         <th className="py-2 px-4">Name</th>
                         <th className="py-2 px-4">Email</th>

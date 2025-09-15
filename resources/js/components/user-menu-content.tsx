@@ -9,12 +9,13 @@ interface UserMenuContentProps {
     user: User;
 }
 
+// --- PERBAIKAN DI SINI: Tambahkan kata kunci 'export' ---
 export function UserMenuContent({ user }: UserMenuContentProps) {
     const cleanup = useMobileNavigation();
 
     const handleLogout = () => {
         cleanup();
-        router.flushAll();
+        router.post(route('logout')); 
     };
 
     return (
@@ -27,16 +28,16 @@ export function UserMenuContent({ user }: UserMenuContentProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                    <Link className="block w-full" href={route('profile.edit')} as="button" prefetch onClick={cleanup}>
-                        <Settings className="mr-2" />
+                    <Link className="block w-full" href={route('profile.edit')} onClick={cleanup}>
+                        <Settings className="mr-2 h-4 w-4" />
                         Settings
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-                <Link className="block w-full" method="post" href={route('logout')} as="button" onClick={handleLogout}>
-                    <LogOut className="mr-2" />
+                <Link as="button" className="block w-full text-left" href={route('logout')} method="post" onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
                     Log out
                 </Link>
             </DropdownMenuItem>

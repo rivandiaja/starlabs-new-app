@@ -33,7 +33,7 @@ const Pemrograman: React.FC = () => {
     const pemrogramanMembers = [
         {
             name: 'Zainul Mutawakil',
-            role: 'Kadiv Pemrograman',
+            role: 'Kadiv Pemprograman',
             image: '/foto_pemrograman/1.png',
             bio: 'Leads the division with expertise in full-stack development and system architecture.',
         },
@@ -50,7 +50,7 @@ const Pemrograman: React.FC = () => {
             bio: 'Focuses on back-end logic, database management, and API development.',
         },
         {
-            name: 'Sobri Iqbal Sutiyono',
+            name: 'Haji Sobri Iqbal Sutiyono',
             role: 'Anggota',
             image: '/foto_pemrograman/4.png',
             bio: 'Passionate about problem-solving through competitive programming and algorithms.',

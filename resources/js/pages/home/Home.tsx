@@ -1,82 +1,80 @@
-import SplashCursor from '@/components/ui/splashcursor';
+import React, { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
-import React, { useEffect } from 'react';
-import About from './components/About';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Hero from './components/Hero';
+import { type Event, type RegistrationForm } from '../../types';
+
+// Import semua komponen section Anda
+import SplashCursor from '../../components/ui/splashcursor';
 import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
 import OurTeam from './components/OurTeam';
 import Services from './components/Services';
 import EventSection from './components/EventSection';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import AdPopupModal from '@/components/AdPopupModal'; // Import modal pop-up
 
-const Home: React.FC = () => {
+// Definisikan props yang diterima dari HomeController
+interface Props {
+    events: Event[];
+    activeForm: RegistrationForm | null; // Menerima data form yang aktif
+}
+
+const Home: React.FC<Props> = ({ events, activeForm }) => {
+    const [showAd, setShowAd] = useState(false);
+
     useEffect(() => {
-        if (window.location.hash) {
-            const el = document.querySelector(window.location.hash);
-            if (el) {
-                const yOffset = -100; // Ganti angka ini sesuai jarak yang kamu mau
-                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-                window.scrollTo({
-                    top: y,
-                    behavior: 'smooth',
-                });
-            }
+        // Iklan akan muncul setiap kali halaman dimuat jika ada form aktif
+        if (activeForm) {
+            setShowAd(true);
         }
-        const revealOnScroll = () => {
-            const reveals = document.querySelectorAll('.reveal');
 
+        const handleScroll = () => {
+            const reveals = document.querySelectorAll('.reveal');
             for (let i = 0; i < reveals.length; i++) {
                 const windowHeight = window.innerHeight;
                 const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementBottom = reveals[i].getBoundingClientRect().bottom;
-                const elementVisible = 50;
+                const elementVisible = 150;
 
-                if (elementTop < windowHeight - elementVisible && elementBottom > 0) {
+                if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add('active');
                 } else {
-                    reveals[i].classList.remove('active'); // 🔁 Remove when out of view
+                    reveals[i].classList.remove('active');
                 }
             }
         };
 
-        const menuButton = document.getElementById('menu-toggle');
-
-        const menu = document.getElementById('mobile-menu');
-
-        menuButton?.addEventListener('click', () => {
-            menu?.classList.toggle('hidden');
-        });
-
-        window.addEventListener('scroll', revealOnScroll);
-
-        revealOnScroll();
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Panggil sekali saat load
 
         return () => {
-            window.removeEventListener('scroll', revealOnScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [activeForm]);
 
     return (
         <>
-            <Head title="Home" />{' '}
-            <div className="z-0 flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
-
-                <SplashCursor />{' '}
+            <Head title="Welcome to Starlabs" />
+            
+            {/* Render modal pop-up iklan secara kondisional */}
+            {showAd && activeForm && <AdPopupModal form={activeForm} onClose={() => setShowAd(false)} />}
+            
+            <div className="z-0 flex min-h-screen flex-col bg-star-dark text-white">
+                <SplashCursor />
                 <main className="font-poppins animate-slide-up animate-once z-1">
                     <Navbar />
                     <Hero />
                     <About />
                     <OurTeam />
                     <Services />
-                    <EventSection />
+                    <EventSection events={events} />
                     <Contact />
-                    <Footer />{' '}
-                </main>{' '}
-            </div>{' '}
+                    <Footer />
+                </main>
+            </div>
         </>
     );
 };
 
 export default Home;
+

@@ -50,7 +50,7 @@ const Office: React.FC = () => {
             bio: 'Designs compelling and visually engaging presentations with Microsoft PowerPoint.',
         },
         {
-            name: 'Nurul Qona`ah Salsabila',
+            name: 'Nurul Qona`ah Salsabilla',
             role: 'Anggota',
             image: '/foto_office/4.png',
             bio: 'Focuses on data analysis and visualization using complex formulas and pivot tables in Excel.',

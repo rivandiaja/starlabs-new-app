@@ -39,7 +39,7 @@ const BPH: React.FC = () => {
             bio: 'Expert in Web Progamming.',
         },
         {
-            name: 'Fattatun Nida Amalia Rahma',
+            name: 'Fattatunida Amalia Rahma',
             role: 'Sekretaris 1',
             image: '/foto_bph/2.png',
             bio: 'Manages internal operations and strategy.',

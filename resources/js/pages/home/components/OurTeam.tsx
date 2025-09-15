@@ -8,10 +8,10 @@ import { Link } from '@inertiajs/react';
 const OurTeam: React.FC = () => {
     const teamMembers = [
         {
-            name: 'Muhammad Ariv Rifandi',
-            role: 'Ketua Umum',
+            name: 'Mas lukluk israel asli pantai tel aviv',
+            role: 'Big Boss asli mujur',
             image: '/foto_bph/1.png',
-            bio: 'Expert in Web Progamming.',
+            bio: 'itu tolong diapain',
             // Perbaikan: Ubah 'BPH' menjadi '/bph' agar menjadi URL yang valid
             profileUrl: '/bph', 
         },
@@ -25,7 +25,7 @@ const OurTeam: React.FC = () => {
         },
         // ... anggota lainnya tetap sama
         {
-            name: 'Azfa Eka Saputra',
+            name: 'Muhammad Azfa E S',
             role: 'Kadiv Multimedia',
             image: '/foto_multimedia/1.png',
             bio: 'Focuses on intuitive design and accessibility.',
@@ -39,15 +39,15 @@ const OurTeam: React.FC = () => {
             profileUrl: '/jaringan',
         },
         {
-            name: 'Kipli',
+            name: 'Rafli K R',
             role: 'Kadiv Office',
             image: '/foto_office/1.png',
             bio: 'Expert in artificial intelligence and machine learning.',
             profileUrl: '/office',
         },
         {
-            name: 'gani',
-            role: 'Kadep Eksternal',
+            name: 'gani mulet jablay',
+            role: 'Kadep Eksternal dan Pembangunan Ekonomi',
             image: '/foto_eksternal/1.png',
             bio: 'Expert in artificial intelligence and machine learning.',
             profileUrl: '/eksternal',

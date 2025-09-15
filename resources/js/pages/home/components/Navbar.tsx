@@ -7,6 +7,7 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false)
+  
 
   // Scroll ke anchor setelah halaman dimuat
   useEffect(() => { 
@@ -49,7 +50,8 @@ const Navbar: React.FC = () => {
           <a href="/#about" className="hover:text-star-light transition-colors">About</a>
           <a href="/#team" className="hover:text-star-light transition-colors">Our Team</a>
           <a href="/#services" className="hover:text-star-light transition-colors">Service</a>
-          <a href="/#research" className="hover:text-star-light transition-colors">Academy</a>
+          <a href="/#events" className="hover:text-star-light transition-colors">Events</a>
+          <a href="/academy" className="hover:text-star-light transition-colors">Academy</a>
           <a href="/#contact" className="hover:text-star-light transition-colors">Contact</a>
         </div>
 
@@ -62,9 +64,9 @@ const Navbar: React.FC = () => {
           ) : (
             <>
               <Link href={route('login')} className="px-4 py-1 text-sm hover:underline">Login</Link>
-              <Link href={route('register')} className="border border-white/30 px-4 py-1 rounded-sm text-sm hover:border-white/50">
+              {/* <Link href={route('register')} className="border border-white/30 px-4 py-1 rounded-sm text-sm hover:border-white/50">
                 Register
-              </Link>
+              </Link> */}
             </>
           )}
         </div>
@@ -77,7 +79,7 @@ const Navbar: React.FC = () => {
           <a href="/#about" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">About</a>
           <a href="/#team" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">Our Team</a>
           <a href="/#services" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">Research</a>
-          <a href="/#research" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">Academy</a>
+          <a href="/academy" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">Academy</a>
           <a href="/#contact" onClick={() => setMenuOpen(false)} className="block hover:text-star-light">Contact</a>
           <div className="pt-2 border-t border-white/20">
             {auth.user ? (
@@ -85,7 +87,7 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <Link href={route('login')} onClick={() => setMenuOpen(false)} className="block hover:underline">Login</Link>
-                <Link href={route('register')} onClick={() => setMenuOpen(false)} className="block hover:underline">Register</Link>
+                {/* <Link href={route('register')} onClick={() => setMenuOpen(false)} className="block hover:underline">Register</Link> */}
               </>
             )}
           </div>

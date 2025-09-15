@@ -77,7 +77,7 @@ const EditUser: React.FC<Props> = ({ user, roles }) => {
 
             <select
             value={data.role_id}
-            onChange={e => setData('role_id', e.target.value)}
+            onChange={e => setData('role_id', Number(e.target.value))}
             className = "mt-1 block w-full rounded-md border border-input bg-background py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
                 
             >
