@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegistrationForm;
+use App\Models\RegistrationSubmission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Exports\SubmissionsExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -31,6 +33,16 @@ class RegistrationSubmissionController extends Controller
         $fileName = 'pendaftar-' . \Illuminate\Support\Str::slug($form->title) . '.xlsx';
         
         return Excel::download(new SubmissionsExport($form), $fileName);
+    }
+
+    public function destroy(RegistrationSubmission $submission)
+    {
+        // Otorisasi sederhana: pastikan hanya admin yang bisa menghapus (opsional)
+        // abort_if(!auth()->user()->isAdmin(), 403);
+
+        $submission->delete();
+
+        return back()->with('success', 'Data pendaftar berhasil dihapus.');
     }
 }
 

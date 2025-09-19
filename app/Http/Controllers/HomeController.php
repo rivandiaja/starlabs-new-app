@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Event;
-use App\Models\RegistrationForm; // 1. Import model RegistrationForm
+use App\Models\RegistrationForm;
+use App\Models\Academy;
+use App\Models\Division;
 
 class HomeController extends Controller
 {
@@ -29,6 +31,13 @@ class HomeController extends Controller
             'activeForm' => $activeForm, // Kirim data form yang aktif (atau null)
         ]);
     }
+    public function academy()
+{
+    return Inertia::render('home/components/Academy', [
+        'activeAcademy' => Academy::where('is_active', true)->first(),
+        'divisions' => Division::all(),
+    ]);
+}
 }
 
 

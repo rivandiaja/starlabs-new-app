@@ -35,7 +35,7 @@ export default function CalendarPanel({ events, schedules }: Props) {
 
     return (
         <div>
-            <h3 className="font-semibold text-white text-xl mb-3">Kalender Kegiatan</h3>
+            <h3 className="font-semibold text-xl mb-3">Kalender Kegiatan</h3>
             <div className="glass-card p-4 rounded-2xl shadow-lg border border-white/10">
                 <div className="calendar-container dashboard-calendar">
                     <ReactCalendar

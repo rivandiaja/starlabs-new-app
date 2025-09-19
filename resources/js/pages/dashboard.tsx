@@ -7,6 +7,7 @@ import SchedulePanel from './dashboard/Partials/SchedulePanel';
 import BillingPanel from './dashboard/Partials/BillingPanel';
 import CalendarPanel from './dashboard/Partials/CalendarPanel';
 import WelcomeBanner from './dashboard/Partials/WelcomeBanner';
+// import OnlineUsers from './dashboard/Partials/OnlineUsers';
 
 interface Props {
     billingSummary: {
@@ -34,6 +35,7 @@ export default function Dashboard({ billingSummary, events, schedules = [] }: Pr
                 
                 {/* Komponen sapaan selamat datang */}
                 <WelcomeBanner userName={userName} />
+                {/* <OnlineUsers /> */}
 
                 {/* Konten dashboard utama */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

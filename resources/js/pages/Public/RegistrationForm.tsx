@@ -185,7 +185,7 @@ export default function PublicRegistrationForm({ form, success }: { form: Regist
                         </div>
                     </div>
                 </section>
-                <Meteors />
+                {/* <Meteors /> */}
                 <SplashCursor />
             </div>
             <Footer />

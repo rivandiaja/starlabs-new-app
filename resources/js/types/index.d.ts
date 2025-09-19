@@ -139,18 +139,56 @@ export interface RegistrationForm {
     is_active: boolean;
     show_benefits: boolean;
     fields: string[];
-    submissions_count?: number; 
+    submissions_count?: number;
 }
 
 export interface Notification {
+    activity: any;
     id: string;
     data: {
-        type: string;       
-        title: string
+        type: string;
+        title: string;
         activity_type: string;
         activity_id: number;
-        created_at_human: string; 
+        created_at_human: string;
     };
     created_at: string;
     read_at: string | null;
+}
+
+export interface Syllabus {
+    id: number;
+    academy_id: number;
+    division_id: number;
+    pertemuan: number;
+    pemateri: string;
+    materi_utama: string;
+    sub_materi: string[];
+    studi_kasus: string;
+    tujuan: string;
+}
+
+export interface Division {
+    description: ReactNode;
+    id: number;
+    name: string;
+    slug: string;
+    image_path: string;
+}
+
+export interface Academy {
+    id: number;
+    name: string;
+    is_active: boolean;
+    syllabuses_count?: number;
+    registration_link?: string | null;
+}
+
+export interface GooglePhotosAlbum {
+    id: string;
+    title: string;
+    productUrl: string;
+    mediaItemsCount: string;
+    coverPhotoBaseUrl: string;
+    coverPhotoMediaItemId: string;
 }

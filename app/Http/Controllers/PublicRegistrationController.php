@@ -7,22 +7,17 @@ use App\Models\RegistrationSubmission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule; // 1. Impor Rule
 
 class PublicRegistrationController extends Controller
 {
     /**
      * Menampilkan halaman formulir pendaftaran publik yang spesifik.
-     *
-     * @param  \App\Models\RegistrationForm  $form
-     * @return \Inertia\Response
      */
     public function show(RegistrationForm $form)
     {
-        // Periksa apakah formulir aktif dan dalam periode pendaftaran
         $today = now()->toDateString();
         if (!$form->is_active || !($today >= $form->start_date && $today <= $form->end_date)) {
-            // Jika tidak, tampilkan halaman error atau redirect ke home
-            // Untuk sekarang, kita akan redirect ke home dengan pesan error
             return redirect()->route('home')->with('error', 'Pendaftaran untuk formulir ini tidak tersedia saat ini.');
         }
 
@@ -33,29 +28,40 @@ class PublicRegistrationController extends Controller
 
     /**
      * Menyimpan data pendaftaran baru dari formulir publik.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RegistrationForm  $form
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, RegistrationForm $form)
     {
-        // Membuat aturan validasi secara dinamis berdasarkan kolom yang dipilih admin
+        // Membuat aturan validasi secara dinamis
         $rules = [];
         foreach ($form->fields as $field) {
             $rules[$field] = 'required|string|max:255';
+            
+            // --- PERBAIKAN DI SINI: Aturan khusus untuk email ---
             if (Str::contains($field, 'email')) {
                 $rules[$field] .= '|email';
-            }
-            if (Str::contains($field, 'nim')) {
-                $rules[$field] .= '|string';
+
+                // Tambahkan aturan custom untuk memeriksa keunikan email di dalam JSON
+                $rules[$field] = [
+                    'required',
+                    'email',
+                    'max:255',
+                    function ($attribute, $value, $fail) use ($form) {
+                        $exists = RegistrationSubmission::where('registration_form_id', $form->id)
+                            ->whereJsonContains('data->email', $value)
+                            ->exists();
+                        
+                        if ($exists) {
+                            $fail('Email ini sudah pernah digunakan untuk mendaftar pada formulir ini.');
+                        }
+                    },
+                ];
             }
         }
         $rules['agreement'] = 'accepted';
 
         $validatedData = $request->validate($rules);
 
-        // Simpan data pendaftaran ke tabel 'registration_submissions'
+        // Simpan data pendaftaran ke database
         RegistrationSubmission::create([
             'registration_form_id' => $form->id,
             'data' => $validatedData,

@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         // First, seed roles
         $this->call(RoleSeeder::class);
+        $this->call(DivisionSeeder::class);
+
 
         // Optionally create a test user (with a role)
         User::factory()->create([
@@ -22,5 +24,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin123'), // Use bcrypt for hashing
             'role_id' => 1, // You can adjust the role_id accordingly
         ]);
+
     }
 }

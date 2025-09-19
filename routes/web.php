@@ -18,7 +18,9 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RegistrationFormController;
 use App\Http\Controllers\PublicRegistrationController;
-use App\Http\Controllers\RegistrationSubmissionController; // 1. Impor controller baru
+use App\Http\Controllers\RegistrationSubmissionController;
+use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\SyllabusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,15 +37,16 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name
 Route::get('/register/{form}', [PublicRegistrationController::class, 'show'])->name('register.show');
 Route::post('/register/{form}', [PublicRegistrationController::class, 'store'])->name('register.store');
 
+Route::get('/academy', [HomeController::class, 'academy'])->name('academy.index');
+Route::get('/academy/{academy}/{division:slug}', [SyllabusController::class, 'showPublic'])->name('academy.division.show');
+
 // Rute statis
-Route::get('/bph', fn() => Inertia::render('home/components/BPH'));
-Route::get('/jaringan', fn() => Inertia::render('home/components/Jaringan'));
-Route::get('/pemrograman', fn() => Inertia::render('home/components/Pemrograman'));
-Route::get('/multimedia', fn() => Inertia::render('home/components/Multimedia'));
-Route::get('/office', fn() => Inertia::render('home/components/Office'));
-Route::get('/eksternal', fn() => Inertia::render('home/components/Eksternal'));
-Route::get('/academy', fn() => Inertia::render('home/components/Academy'))->name('academy');
-Route::get('/academy-jaringan', fn() => Inertia::render('home/components/Academy/Jaringan'))->name('jaringan');
+Route::get('/bph', fn() => Inertia::render('home/components/BPH'))->name('bph');
+Route::get('/jaringan', fn() => Inertia::render('home/components/Jaringan'))->name('jaringan');
+Route::get('/pemrograman', fn() => Inertia::render('home/components/Pemrograman'))->name('pemrograman');
+Route::get('/multimedia', fn() => Inertia::render('home/components/Multimedia'))->name('multimedia');
+Route::get('/office', fn() => Inertia::render('home/components/Office'))->name('office');
+Route::get('/eksternal', fn() => Inertia::render('home/components/Eksternal'))->name('eksternal');
 
 
 /*
@@ -61,6 +64,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/meet', [MeetController::class, 'store'])->name('meet.store');
     Route::get('/contact-messages', [ContactController::class, 'index'])->name('contact.messages.index');
     Route::delete('/contact-messages/{message}', [ContactController::class, 'destroy'])->name('contact.messages.destroy');
+    Route::get('/registration-forms/{form}/submissions', [RegistrationSubmissionController::class, 'index'])->name('registration-forms.submissions.index');
+    Route::get('/registration-forms/{form}/submissions/export', [RegistrationSubmissionController::class, 'export'])->name('registration-forms.submissions.export');
+    Route::delete('/submissions/{submission}', [RegistrationSubmissionController::class, 'destroy'])->name('submissions.destroy');
 
     // --- Rute Notifikasi ---
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -76,13 +82,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('schedules', ScheduleController::class);
     Route::resource('announcements', AnnouncementController::class)->except(['create', 'edit', 'show']);
     Route::resource('registration-forms', RegistrationFormController::class)->except(['create', 'edit', 'show']);
-
-    // --- 2. TAMBAHKAN RUTE INI ---
-    Route::get('/registration-forms/{form}/submissions', [RegistrationSubmissionController::class, 'index'])->name('registration-forms.submissions.index');
-    Route::get('/registration-forms/{form}/submissions/export', [RegistrationSubmissionController::class, 'export'])->name('registration-forms.submissions.export');
+    Route::resource('academies', AcademyController::class);
     
+    // --- PERBAIKAN: Rute untuk Manajemen Silabus ---
+    Route::get('/academies/{academy}/divisions/{division}/syllabuses', [SyllabusController::class, 'index'])->name('academies.syllabuses.index');
+    Route::post('/academies/{academy}/syllabuses', [SyllabusController::class, 'store'])->name('academies.syllabuses.store');
+    Route::patch('/syllabuses/{syllabus}', [SyllabusController::class, 'update'])->name('syllabuses.update');
+    Route::delete('/syllabuses/{syllabus}', [SyllabusController::class, 'destroy'])->name('syllabuses.destroy');
 
     // --- Rute API untuk Google Drive (diproteksi) ---
+    Route::post('/api/drive-library/upload', [GoogleDriveController::class, 'uploadFile']);
     Route::get('/api/drive-library', [GoogleDriveController::class, 'listFiles']);
     Route::delete('/api/drive-library/delete/{fileId}', [GoogleDriveController::class, 'deleteFile']);
     Route::patch('/api/drive-library/rename/{fileId}', [GoogleDriveController::class, 'renameFile']);
@@ -101,4 +110,3 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
-
