@@ -1,6 +1,6 @@
 import { type RegistrationForm } from '@/types';
-import { X, Calendar } from 'lucide-react';
 import { Link } from '@inertiajs/react';
+import { Calendar, X } from 'lucide-react';
 
 interface Props {
     form: RegistrationForm;
@@ -12,36 +12,39 @@ const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
     });
 };
 
 export default function AdPopupModal({ form, onClose }: Props) {
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-transparent  p-4 fade-in">
-            <div className="relative max-w-4xl w-full bg-black/10 backdrop-blur-lg rounded-2xl shadow-lg border border-white/10 overflow-hidden flex flex-col md:flex-row">
-                <button 
-                    onClick={onClose} 
-                    className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 text-white/70 hover:bg-black/60 transition z-10"
+        <div className="fade-in fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
+            <div className="relative flex w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-black/20 shadow-lg backdrop-blur-lg md:flex-row">
+                {/* Tombol Close */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-3 right-3 z-10 rounded-full bg-black/50 p-1.5 text-white/80 transition hover:bg-black/70"
                     aria-label="Tutup Iklan"
                 >
                     <X size={20} />
                 </button>
-                
+
                 {/* --- Kolom Kiri: Teks dan Tombol --- */}
-                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center items-center md:items-start text-center md:text-left order-2 md:order-1">
-                    <h3 className="text-3xl font-bold text-white">{form.title}</h3>
-                    
-                    <div className="flex items-center gap-2 mt-3 text-sm font-semibold bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
+                <div className="order-2 flex w-full flex-col items-center justify-center p-5 text-center sm:p-6 md:order-1 md:w-1/2 md:items-start md:p-8 md:text-left">
+                    <h3 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">{form.title}</h3>
+
+                    <div className="mt-3 flex items-center gap-2 rounded-full bg-blue-500/20 px-3 py-1 text-xs font-medium text-blue-300 sm:text-sm">
                         <Calendar size={14} />
-                        <span>{formatDate(form.start_date)} - {formatDate(form.end_date)}</span>
+                        <span>
+                            {formatDate(form.start_date)} - {formatDate(form.end_date)}
+                        </span>
                     </div>
 
-                    <p className="text-white/70 mt-4 mb-6">{form.description}</p>
-                    
-                    <Link 
-                        href={route('register.show', form.id)} 
-                        className="px-8 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 font-semibold transition"
+                    <p className="mt-4 mb-6 text-sm text-white/70 sm:text-base">{form.description}</p>
+
+                    <Link
+                        href={route('register.show', form.id)}
+                        className="rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 sm:px-8 sm:py-3 sm:text-base"
                     >
                         Daftar Sekarang
                     </Link>
@@ -49,12 +52,11 @@ export default function AdPopupModal({ form, onClose }: Props) {
 
                 {/* --- Kolom Kanan: Gambar --- */}
                 {form.image_url && (
-                    <div className="w-full md:w-1/2 aspect-square md:aspect-auto order-1 md:order-2">
-                        <img src={form.image_url} alt={form.title} className="w-full h-full object-cover"/>
+                    <div className="order-1 flex w-full md:order-2 md:w-1/2">
+                        <img src={form.image_url} alt={form.title} className="h-full w-full object-cover object-center" />
                     </div>
                 )}
             </div>
         </div>
     );
 }
-
