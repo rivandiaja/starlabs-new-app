@@ -1,11 +1,13 @@
 // @ts-nocheck
 import { Head, Link, useForm } from '@inertiajs/react';
 import { type RegistrationForm } from '@/types';
-import React, { FormEventHandler, useEffect } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import Navbar from '@/Pages/home/components/Navbar';
 import Footer from '@/Pages/home/components/Footer';
 import SplashCursor from '@/components/ui/splashcursor';
 import Meteors from '@/Pages/home/components/Meteor';
+import Particles from '@/components/ui/particle';
+
 
 // Komponen Alert
 const Alert: React.FC<{ type: 'success' | 'danger'; message: string; }> = ({ type, message }) => {
@@ -112,6 +114,17 @@ export default function PublicRegistrationForm({ form, success }: { form: Regist
         NETWORK: '/images/icons/network.png',
     };
 
+    const [isDesktop, setIsDesktop] = useState(true);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
     return (
         <>
             <Head title={form.title} />
@@ -185,8 +198,15 @@ export default function PublicRegistrationForm({ form, success }: { form: Regist
                         </div>
                     </div>
                 </section>
-                {/* <Meteors /> */}
-                <SplashCursor />
+                <>
+                    <Meteors />
+                    <Particles className="absolute inset-x-0 top-0 h-full w-full" />
+                </>
+                {isDesktop && (
+                    <>
+                        <SplashCursor />
+                    </>
+                )}
             </div>
             <Footer />
         </>

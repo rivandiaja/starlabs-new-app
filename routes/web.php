@@ -41,12 +41,16 @@ Route::get('/academy', [HomeController::class, 'academy'])->name('academy.index'
 Route::get('/academy/{academy}/{division:slug}', [SyllabusController::class, 'showPublic'])->name('academy.division.show');
 
 // Rute statis
+Route::get('/contact', function () {return redirect('/#contact');})->name('contact');
 Route::get('/bph', fn() => Inertia::render('home/components/BPH'))->name('bph');
 Route::get('/jaringan', fn() => Inertia::render('home/components/Jaringan'))->name('jaringan');
 Route::get('/pemrograman', fn() => Inertia::render('home/components/Pemrograman'))->name('pemrograman');
 Route::get('/multimedia', fn() => Inertia::render('home/components/Multimedia'))->name('multimedia');
 Route::get('/office', fn() => Inertia::render('home/components/Office'))->name('office');
 Route::get('/eksternal', fn() => Inertia::render('home/components/Eksternal'))->name('eksternal');
+Route::get('/privacy-policy', fn() => Inertia::render('home/components/PrivacyPolicy'))->name('privacy.policy');
+Route::get('/terms-of-service', fn() => Inertia::render('home/components/TermsOfService'))->name('terms.service');
+Route::get('/careers', fn() => Inertia::render('home/components/Careers'))->name('careers');
 
 
 /*
@@ -60,8 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/drive-library', fn() => Inertia::render('DriveLibrary'))->name('drive.library');
     Route::get('/finances/distribution', [FinanceController::class, 'distribution'])->name('finances.distribution');
-    Route::get('/meet', [MeetController::class, 'index'])->name('meet.index');
-    Route::post('/meet', [MeetController::class, 'store'])->name('meet.store');
+    Route::get('/meet', fn() => Inertia::render('Meet/Index'))->name('meet.index');
     Route::get('/contact-messages', [ContactController::class, 'index'])->name('contact.messages.index');
     Route::delete('/contact-messages/{message}', [ContactController::class, 'destroy'])->name('contact.messages.destroy');
     Route::get('/registration-forms/{form}/submissions', [RegistrationSubmissionController::class, 'index'])->name('registration-forms.submissions.index');

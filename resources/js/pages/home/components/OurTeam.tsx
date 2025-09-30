@@ -11,7 +11,7 @@ const OurTeam: React.FC = () => {
             name: 'Muhammad Arif Rivandi',
             role: 'Ketua Umum',
             image: '/foto_bph/1.png',
-            bio: 'Expert in Web Progamming.',
+            bio: 'Tech leader with a passion for digital innovation and web development.',
             profileUrl: '/bph',
         },
         {

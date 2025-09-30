@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Particles from '@/components/ui/particle';
 import SplashCursor from '@/components/ui/splashcursor';
 import Footer from './Footer';
@@ -99,6 +99,16 @@ const Office: React.FC = () => {
         </div>
     );
 
+    const [isDesktop, setIsDesktop] = useState(true);
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
     return (
         <>
             <Navbar />
@@ -117,10 +127,15 @@ const Office: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
-                <Meteors />
-                <Particles className="absolute inset-x-0 top-0 h-full w-full" />
-                <SplashCursor />
+                <>
+                    <Meteors />
+                    <Particles className="absolute inset-x-0 top-0 h-full w-full" />
+                </>
+                {isDesktop && (
+                    <>
+                        <SplashCursor />
+                    </>
+                )}
             </section>
             <Footer />
         </>

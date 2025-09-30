@@ -150,7 +150,7 @@ export default function NotificationBell() {
     return (
         <>
             <div className="relative" ref={dropdownRef}>
-                <button onClick={handleBellClick} className="relative p-2 rounded-full text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+                <button onClick={handleBellClick} className="relative p-2 rounded-full text-black transition-colors">
                     <Bell />
                     {unreadCount > 0 && (
                         <span className="absolute top-1 right-1 flex h-3 w-3">
@@ -161,7 +161,7 @@ export default function NotificationBell() {
                 </button>
                 
                 {isOpen && (
-                    <div className="absolute right-0 mt-2 w-80 bg-gray-800 border border-white/10 rounded-md shadow-lg z-20">
+                    <div className="fixed top-20 inset-x-4 w-auto max-w-md mx-auto md:absolute md:top-full md:right-0 md:mt-2 md:w-80 md:inset-x-auto md:max-w-none bg-gray-800 border border-white/10 rounded-md shadow-lg z-20">
                         <div className="p-3 font-bold border-b border-white/10 text-white">Notifikasi</div>
                         <div className="max-h-96 overflow-y-auto">
                             {notifications.length > 0 ? notifications.map(notif => (
@@ -171,7 +171,7 @@ export default function NotificationBell() {
                                         setViewingNotification(notif);
                                         setIsOpen(false);
                                     }}
-                                    className="w-full text-left p-3 border-b border-white/10 text-sm hover:bg-white/10"
+                                    className={`w-full text-left p-3 border-b border-white/10 text-sm hover:bg-white/10 ${!notif.read_at ? 'bg-blue-500/10' : ''}`}
                                 >
                                     <p className="font-semibold text-blue-300">{notif.data.type}</p>
                                     <p className="text-white my-1">{notif.data.title}</p>

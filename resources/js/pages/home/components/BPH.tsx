@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import Particles from '@/components/ui/particle';
 import SplashCursor from '@/components/ui/splashcursor';
+import React, { useEffect, useState } from 'react';
 import Footer from './Footer';
 import Meteors from './Meteor';
 import Navbar from './Navbar';
@@ -36,7 +36,7 @@ const BPH: React.FC = () => {
             name: 'Muhammad Ariv Rivandi',
             role: 'Ketua Umum',
             image: '/foto_bph/1.png',
-            bio: 'Expert in Web Progamming.',
+            bio: 'Tech leader with a passion for digital innovation and web development.',
         },
         {
             name: 'Fattatunida Amalia Rahma',
@@ -71,7 +71,7 @@ const BPH: React.FC = () => {
     const renderMemberCard = (member: any, idx: number) => (
         <div
             key={idx}
-            className="reveal group hover:shadow-star-light/10 relative flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl opacity-0 translate-y-8"
+            className="reveal group hover:shadow-star-light/10 relative flex translate-y-8 flex-col rounded-2xl border border-white/10 bg-white/5 p-6 text-center opacity-0 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
         >
             <img
                 src={member.image}
@@ -85,6 +85,16 @@ const BPH: React.FC = () => {
             </div>
         </div>
     );
+    const [isDesktop, setIsDesktop] = useState(true);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
 
     return (
         <>
@@ -104,10 +114,15 @@ const BPH: React.FC = () => {
                         <div className="grid w-full max-w-4xl grid-cols-1 gap-x-8 gap-y-24 sm:grid-cols-2">{bendahara.map(renderMemberCard)}</div>
                     </div>
                 </div>
-
-                <Meteors />
-                <Particles className="absolute inset-x-0 top-0 h-full w-full" />
-                <SplashCursor />
+                <>
+                    <Meteors />
+                    <Particles className="absolute inset-x-0 top-0 h-full w-full" />
+                </>
+                {isDesktop && (
+                    <>
+                        <SplashCursor />
+                    </>
+                )}
             </section>
             <Footer />
         </>

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Particles from '@/components/ui/particle';
 import SplashCursor from '@/components/ui/splashcursor';
 import Footer from './Footer';
 import Meteors from './Meteor';
 import Navbar from './Navbar';
+import { c } from 'node_modules/framer-motion/dist/types.d-Cjd591yU';
 
 const Jaringan: React.FC = () => {
     useEffect(() => {
@@ -87,6 +88,16 @@ const Jaringan: React.FC = () => {
         </div>
     );
 
+    const [isDesktop, setIsDesktop] = useState(true);
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
     return (
         <>
             <Navbar />
@@ -116,10 +127,15 @@ const Jaringan: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
-                <Meteors />
-                <Particles className="absolute inset-x-0 top-0 h-full w-full" />
-                <SplashCursor />
+                <>
+                    <Meteors />
+                    <Particles className="absolute inset-x-0 top-0 h-full w-full" />
+                </>
+                {isDesktop && (
+                    <>
+                        <SplashCursor />
+                    </>
+                )}
             </section>
             <Footer />
         </>

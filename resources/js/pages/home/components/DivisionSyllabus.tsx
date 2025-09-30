@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import Navbar from '@/pages/home/components/Navbar';
 import Footer from '@/pages/home/components/Footer';
@@ -60,6 +60,18 @@ const DivisionSyllabus: React.FC<Props> = ({ academy, division, syllabuses }) =>
         </>
     );
 
+    const [isDesktop, setIsDesktop] = useState(true);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsDesktop(window.innerWidth >= 768);
+        };
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+        return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+
+
     return (
         <>
             <Head title={`Silabus: ${division.name}`} />
@@ -106,10 +118,15 @@ const DivisionSyllabus: React.FC<Props> = ({ academy, division, syllabuses }) =>
                         </div>
                     </div>
                 </div>
-                
-                <Meteors />
-                <Particles className="absolute inset-x-0 top-0 h-full w-full -z-10" />
-                <SplashCursor />
+                <>
+                    <Meteors />
+                    <Particles className="absolute inset-x-0 top-0 h-full w-full" />
+                </>
+                {isDesktop && (
+                    <>
+                        <SplashCursor />
+                    </>
+                )}
             </section>
             <Footer />
         </>
